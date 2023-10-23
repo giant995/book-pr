@@ -1,3 +1,8 @@
+Translations:
+
+* [English](manuscript.md)
+* [Français](manuscript_fr.md)
+
 # Introduction {-}
 
 Pull requests have become an essential part of the developer workflow over the past decades. They are widely recognized as an efficient way to encourage collaboration on code and improve code quality in the long term.
