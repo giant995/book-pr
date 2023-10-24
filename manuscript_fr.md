@@ -97,77 +97,119 @@ _**Note:** documenting your progress is not an excuse to create big PRs. Your fi
 Simplement créer une PR et la mettre comme prête est souvent insuffisant pour en assurer sa révision. Même si vous pouvez demander une révision à vos collègues sur Slack ou autres platformes, il est important de garder en tête que tous on plusieurs PR à réviser et un temps limité.
 Simply creating a PR and marking it as ready is often insufficient to ensure it gets reviewed. While you can ask your peers for a review on Slack or other platforms, it's important to keep in mind that everyone has multiple PRs to review and limited time. Therefore, it is essential to increase your chances of getting your PR reviewed by following a few good practices.
 
+## Faites une petite PR {-}
 ## Make your PR small {-}
 
+On ne le recommendera jamais assez et ça sera souvent répété dans ce guide: vos PRs devraient être les plus petites possible! Personne n'aime réviser des PRs avec des milliers de changements. Non seulement c'est très long à faire, mais c'est aussi très difficile à obtenir une approbation puisque les risques de laisser passer un bug sont plus importants.
 We cannot stress this enough, and you will come across this multiple times in this guide: your PR should be as small as possible! Nobody enjoys reviewing PRs with thousands of changes. It not only takes a long time, but it also makes it difficult to give approval because there is a high risk of letting a bug slip through.
 
+Même si les pratiques varient d'une équipe à l'autre, votre PR devrait être la plus petite possible, tout en adhérant aux critères suivants:
 While the practices may vary from one team to another, your PR should be as small as possible, while still meeting the following criteria:
 
+- Ne pas briser l'application: Ça peut sembler évident, mais votre PR ne devrait rien briser, même si le problème sera résolu sous peu ou par quelqu'un d'autre. Un scénario fréquent est lorsqu'un changement à l'interface graphique requiert un changement équivalent de l'API et vice-version. Consultez vos coéquipiers pour trouver la meilleure solution qui empêchera l'application d'être innutilisable.
 - Not breaking the application: This may seem obvious, but your PR should not break anything, even if the issue is going to be fixed soon or by someone else. A common scenario is when a change in the UI requires a corresponding change in the API, and vice versa. Consult with your team to find the best solution to prevent the application from breaking.
+- Inclure des tests unitaires: Oui, ils ne devraient pas faire parti d'une autre PR. L'inclusion d'autres types de tests (intégration, end-to-end, etc.) peu être débattu. 
 - Including unit tests: Yes, they should not be part of another PR. The inclusion of other types of tests (integration, end-to-end, etc.) is debatable.
+- Ajouter de la valeur: La quantité de valeur ajoutée requise peut varier d'une équipe à l'autre. Parfois, créer un composant sans qu'il ne soit encore utilisé est suffisant, alors qu'à dautres moment, chaque PR doit apporter une valeur ajoutée à l'utilisateur (lorsque possible).
 - Providing value: The amount of value required may vary from one team to another. Sometimes, creating a component even if it is not yet being used is sufficient, while other times, each PR needs to provide value for the end user (when possible).
 
+## Fournir tout le contexte nécessaire à la révision {-}
 ## Provide all the context needed for review {-}
 
+Le titre de votre PR et sa description devrait fournir toute l'information nécessaires aux développeurs pour réviser votre code. Ceci inclut:
 Your PR title and description should provide all the necessary information for developers to review your code. This includes:
 
+- Une référence à la tâche (Jira, issue GitHub, etc.) auquel la PR est rattachée.
 - A reference to the task (Jira or GitHub issue, etc.) that the PR is related to.
+- Une brève description des changements de la PR.
 - A brief description of what the PR changes.
+- Des étapes claires et précises pour tester les changements
 - Clear steps to test your changes.
 
+Dans plusieurs projets, il y a un gabarit pour la description d'une PR qui guide les développeurs et s'assure que toute l'information requise est fournie. D'autres projets pourraient requérir d'inclure des captures d'écran ou encore une vidéo des changements, alors que d'autres pourraient demander une liste des potentiels problèmes que la PR pourrait introduire, tel que des problèmes de performance.
 In many projects, there is a template for PR descriptions that guides developers and ensures all the required information is provided. Some projects may require you to include screenshots or even a video of the changes, while others may ask you to list potential problems that your PR could cause, such as performance issues.
 
+Voici un example complet d'une PR avec son titre et sa description:
 Here is an example of complete PR title and description:
 
+> **Titre:** Ajouter la fonctionnalité de recherche dans l'en-tête de l'app
 > **Title:** Add search feature to the app header
 >
 > **Description:**
 >
+> Carte Jira: 1234
 > Jira issue: 1234
-> Figma design: (link)
+> Design Figma: (link)
 >
+> Ajoute une nouvelle section à droite de l'en-tête de l'app lorsque l'utilisateur est connecté, contenant un formulaire de recherche (zone saisie + bouton). Lorsqu'envoyé, le formulaire redirige vers la page de recherche.
 > Add a new section at the right of the app header when the user is signed in, containing a search form (input + button). When submitted, the form redirects to the search page.
 >
+> (capture d'écran ou vidéo)
 > (screenshot or video)
 >
+> Étapes pour tester:
 > Steps to test:
 >
+> 1. Se connecter avec un utilisateur test
 > 1. Sign in with a test user
+> 2. Entrer une requête dans la barre de recherche en haut à droite, ex.: "test"
 > 2. Enter a query in the search bar at the top right, e.g. “test”
+> 3. Appuyer sur la touchée Entrée ou sur le bouton de recherche
 > 3. Press enter or the search button
+> 4. Vous devriez être redirigé vers la page de rercherche (vide pour l'instant) avec la requête dans l'url (paramètre `query`)
 > 4. You should be redirected to the search page (still empty for now), with the query in the URL (`query` parameter)
 >
+> Prochaines étapes:
 > Next steps:
 >
+> - Implémenter la page de recherche (carte Jira 1235)
 > - Implement the search page (Jira issue 1235)
+> - Mettre à jour les tests end-to-end (carte Jira 1236) dans le répertoire e2e-tests
 > - Update end-to-end tests (Jira issue 1236) in repository e2e-tests
 
+Ils apportent toute l'information requise pour réviser le code:
 They provide all the information required to review the code:
 
+- Un **court titre** pour identifier la nature de la PR dans la liste de PRs.
 - A **short title** to identify what the PR is about from the PR list.
+- Une **référence à la carte Jira** et un lien vers le **design Figma** pour que tous puisse vérifiez que vous ayez implémenté l'interface utilisateur correctement.
 - A **reference to the Jira issue**, and a link to a **Figma design** so that everyone can check you implemented the UI correctly.
+- Une **courte description** des changements. À noter qu'il n'est pas nécessaire de répéter ce qui est dans la carte Jira ou l'issue GitHub qui continnent généralement plus d'information.
 - A **short description** of the changes. Note that it doesn’t need to repeat what is in the Jira or GitHub issue, which usually contains more information.
+- Des **captures d'écran ou vidéos** des changements (pratique pour les changements d'interface utilisateur; pour les changements d'API vous pouvez mettre une capture d'écran des appels d'API avec cURL ou Postman).
 - **Screenshots or videos** of the changes (helpful for UI changes; for API changes you can provide screenshots of API calls using cURL or Postman).
+- Des **étapes pour tester** vos changements
 - **Steps to test** your changes
+- Les **prochaines étapes**, c-à-d ce qu'on peut s'attendre de votre prochaine PR (ou de celle de quelqu'un d'autres)
 - **Next steps**, i.e. what people can expect from your next PR (or someone else’s)
 
+Discutez avec votre équipe de ce qui est attendu dans la description de chaque PR, mais rappelez vous que le but est de _donner envie_ aux gens de réviser votre PR. Plus vous donnez d'information (tout en étant conscit), plus facile il est de débuter la révision de votre code.
 Discuss with your team of what is expected in each PR description, but remember that the point is to make people _want_ to review your PR. The more information you provide (while still going straight to the point), the easier it will be to start reviewing your code.
 
+Vous devez aussi réaliser que lorsque votre code est intégré, elle existe encore. Lorsque les gens vont lire une partie de votre code et se demander pourquoi c'est là ou pourquoi ça été écrit de cette manière, ils trouveront votre PR. Les futurs développeurs (et vous-même) vont vous adorer pour avoir mis en un même endroit le lien vers la carte Jira ou l'issue GitHub, un lien vers le design Figma, des captures d'écran, etc.
 Also realize that when your PR is merged, it will still exist. When people find a piece of code from you and wonder why it is here or why it was written this way, they’ll find your PR. Future developers (who might be your future self) will love you for providing at the same place the link to the Jira or GitHub issue, a link to the Figma design, some screenshots, etc.
 
+## Gagnez la confiance des gens {-}
 ## Make people trust you {-}
 
+Imaginez que vous ayez deux PRs à réviser, mais vous ne pouvez qu'en réviser une avant la fin de la journée. Les deux ont une description claire et toute l'information requise.
 Imagine your have to review two PRs, and have time to review only one before the end of day. Both have a clear description with all the required information.
 
+1. L'une est d'Alice, qui avait créée deux PRs que vous avez révisé la semaine dernière. Le code était propre, vous avez ajouté quelques commentaire et elle a rapidement apporté des changements. À peine 15 minutes après avoir débuté la révision, vous avez été en mesure d'approuver les changements et elles les a intégrés.
 1. The first is from Alice, who created two PRs last week that you reviewed. The code was clean, you added a couple of comments, and she made the changes quickly. Barely 15 minutes after you started to review both, you were able to approve them and she merged them.
+2. La deuxième est de Bob. Vous avez révisé une de ses PRs la semaine dernière. Vous avez installé ses changemens en local et vous avez remarqué que l'application ne démarrait pas à cause d'une exception. Vous lui avez fait remarquer, mais une demie journée est passée avant une réponse de sa part. Vous avez ensuite remarqué que l'un de ses changements ne correspond pas au design du Figma qui a été fourni par l'équipe UI/UX. Finalement, après une douzaine de commentaires sur son code, la PR est appprouvée, mais les tests end-to-end échouent et il a dû annuler ses modifications.
 2. The second one is from Bob. You reviewed a PR of his last week. You fetched his changes locally, and noticed that you weren’t able to start the application because of an exception. You told him but had to wait half a day before he even answered your message. Then you noticed that some of his changes did not comply with the Figma design provided by the UI/UX team. Finally, after a dozen comments about his code, you approved the PR, but the end-to-end tests failed and he had to rollback his PR.
 
+Si vous ne pouvez réviser qu'une seule des deux PRs; laquelle allez-vous choisir? La réponse est évident. Même si toutes les PRs ont besoin d'être révisée, peut importe leur importance, les développeurs sont humains. Ils vont toujours favoriser la PR qui a le moins de chance d'apporter du risque, de la frustration et une perte de temps.
 So you can review only one the two PRs; which one are you going to choose? The answer is obvious. Even if all the PRs need to be reviewed, and regardless of the urgency of each one, developers are human. They will always favour the PR that has the least chance to introduce risk, frustration, and loosing time.
 
+Considerez que tous les développeurs ont un "indicateur de confiance" qu'ils attribuent à tous et chacun. Lorsqu'une révision se déroule sans encombres, cet indicateur augmente pour le développeur. Lorsqu'il y a frustrations, l'indicateur diminue.
 Consider that all developers have a “trust indicator” assigned to each other. When a review goes smoothly, the trust indicator increases for the developer. When it causes frustration, the trust indicator decreases.
 
+Soyez le développeur qui, lorsque d'autres reçoive une PR de lui, se disent "Je peux la réviser à l'instance parce que je sais que ce sera du bon travail et que ça ne me demandera pas beaucoup d'énergie".
 Be the developer who, when others receive a PR to review from think “I can review it right now because I know it will be nice work and won’t take me too much energy”.
 
+# Soyez le premier réviseur de votre PR
 # Be your PR’s first reviewer
 
 This might be the advice I give the most to any developer: when you create a PR, before marking it as ready for review, review it yourself. Put yourself in the shoes of another developer looking at your code for the first time.
